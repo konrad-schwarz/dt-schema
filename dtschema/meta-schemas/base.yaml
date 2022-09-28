@@ -9,7 +9,8 @@ description: "Metaschema for devicetree binding documentation"
 
 allOf:
   - $ref: "http://json-schema.org/draft-07/schema#"
-  - $ref: "http://devicetree.org/meta-schemas/keywords.yaml#"
+  - $ref: "http://devicetree.org/meta-schemas/keywords.yaml#"  
+  # I think this means include these files
 
 properties:
   # listing all properties here to narrow the scope of what is allowed in
@@ -19,17 +20,20 @@ properties:
   # misspelled or unsupported tests.
   $id:
     pattern: 'http://devicetree.org/schemas/.*\.yaml#'
+    # $id in DT schema have to have this form
   $schema:
     enum:
       - "http://devicetree.org/meta-schemas/core.yaml#"
       - "http://devicetree.org/meta-schemas/base.yaml#"
+        # schema can be set to either one of these, base.yaml is this file
   title:
     maxLength: 100
+    # length of title 
   examples:
     type: array
     items:
       type: string
-
+# examples section is an array (list) of un-parsed strings
   maintainers:
     type: array
     items:
