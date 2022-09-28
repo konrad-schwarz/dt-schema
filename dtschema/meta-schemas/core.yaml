@@ -35,25 +35,37 @@ definitions:
       - $ref: "vendor-props.yaml#"
   core-properties:
     properties:
+      # ranges is an array of cells
       ranges:
         $ref: "cell.yaml#/array"
       reg:
         $ref: "cell.yaml#/array"
+        # compatible is a list of strings
       compatible:
         $ref: "string-array.yaml"
+       
+       # why does nodename start with a $?, and why is it an array
       $nodename:
         $ref: "string-array.yaml"
+
+      # I actually don't know what a memory-region is
       memory-region:
         $ref: "cell.yaml#/array"
+        
       memory-region-names:
         $ref: "string-array.yaml"
+        
+        
     patternProperties:
+       # anything that ends with -name is a string-array; regex is longer than necessary
       '.*-names$':
         $ref: "string-array.yaml"
-
-      '^#.*-cells$':
+  
+  # all the #*-cells properties are a single cell
+      '^#.*-cells$': 
         $ref: "cell.yaml#/single"
 
+      # supply-nodes can have a description and a deprecated node
       '-supply$':
         propertyNames:
           enum: [ description, deprecated ]
@@ -134,6 +146,7 @@ properties:
       patternProperties:
         $ref: "#/definitions/all-properties"
 
+# a description must have either properties or patternProperties
 anyOf:
   - required:
       - properties
